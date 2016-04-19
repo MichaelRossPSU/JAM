@@ -1,17 +1,25 @@
-<!doctype html>
-<html>
+<!--- Jam sample website by thadoe -->
+<!DOCTYPE html>
+
 <head>
-<title>Websocket</title>
+<link type="text/css" rel="stylesheet" href="./css/main.css" >
+<link type="text/css" rel="stylesheet" href="./css/buttonstyle.css">
+
+<title> RaspberryJAM </title>
+
 <script src="http://code.jquery.com/jquery-2.0.0.js"></script>
-</head>
-<body>
-<h1>Websocket</h1>
-<label id="conn_text"></label><br />
-<input type="text" id="input_text"/>
-<input type="submit" id="button" value="Send" /><br />
-<div id="messages_txt" />
-<script>
-  $(document).ready(function () {
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<!---<script type="text/javascript">
+		$(document).ready(function(){
+			$('#button').on('click', function(){
+				$(this).toggleClass('on');
+			});
+		});
+</script>-->
+
+<script type="text/javascript">//for light switch and alarm for now 
+
+$(document).ready(function () {
     //change example.com with your IP or your host
     var ws = new WebSocket("ws://homemonitoringee403w.ddns.net:8888/ws");
     ws.onopen = function(evt) {
@@ -26,14 +34,133 @@
     ws.onclose = function(evt) {
       alert ("Connection closed");
     };
-    $("#button").click(function(evt) {
-      evt.preventDefault();
-      var message = $("#input_text").val();
-      ws.send(message);
-      var newMessage = document.createElement('p');
-      newMessage.textContent = "Client: " + message;
-      document.getElementById('messages_txt').appendChild(newMessage);
-    });
-  });
+
+	$('#led').click(function() {
+	
+		if ($(this).val() == "ledoff") {
+			$(this).val("ledon");
+			var message = $("#led").val();
+		}
+		else{
+			$(this).val("ledoff");
+			var message = $("#led").val();
+		}
+		ws.send(message);
+	});
+});
+
+
 </script>
-</body></html>
+
+</head>
+
+<body>
+ 	
+
+ 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  	<script src="https://code.jquery.com/jquery-git2.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+  	<script src="./js/main.js"></script><!--?-->
+
+
+
+	
+	<div style="height:100vh; width:100%" class="top-container">			
+ 		
+ 		<div class="container-fluid">
+ 			
+			
+			<img src="resp.png" id="image1" alt="Cinque Terre" >
+ 			<!--<h id="mainheader"> "Monitoring Your World" </h>-->
+ 		
+		</div>
+
+
+
+
+ 		<div style="background-color: #333333; padding:20px" class="col-sm-6 left">
+		 	
+		 		<div class="embed-responsive embed-responsive-4by3">
+    				<iframe id="highlight" class="embed-responsive-item"  src="http://homemonitoringee403w.ddns.net:8080/stream_simple.html"></iframe>
+				</div>
+		<!---<div id="ran" style="background-color: #333333; padding:20px" class="col-sm-7 left">
+
+		<iframe width="1000" height="750"
+		src="http://homemonitoringee403w.ddns.net:8080/stream_simple.html" >
+		</iframe>-->
+		</div>
+ 		
+ 		<div class="col-sm-3 middle"  style="background-color: #333333; padding:20px" >
+ 		
+ 			<div id="divv" style="height:80%; width:100%; padding:10px; background-color:#211F20;">
+ 				
+ 				<div class="container-fluid">
+ 					<h1 class="text">SENSORS </h1>
+ 				</div>
+				
+				<h1 class="text">Temperature</h1>
+ 			
+ 				<div class="panel panel-default">
+  					<div class="panel-body">Temp here</div>
+				</div>
+
+				<h1 class="text">Light</h1>
+				
+				<div class="panel panel-default">
+  					<div class="panel-body">Lux here</div>
+				</div>
+				
+ 			</div>
+
+ 		</div>
+ 		
+ 		<div class="col-sm-3 right"  style="background-color: #333333; padding:20px" >
+ 			
+ 			<div id="divv" style="height:80%; width:100%; padding:10px; background-color:#211F20;">
+
+ 				<div class="container-fluid">
+					<h1 class="text">CONTROLS </h1>
+				</div>
+			
+				<h1 class="text">Alarm Control</h1>
+
+ 			
+				<div class="row" style="padding:10px">
+    				
+    				<div class="col-md-4 col-md-offset-4">
+  					
+  					<input type="submit" id="led" value="ledoff" /><br />
+  					</div>
+
+
+				</div>
+				
+				<h1 class="text">Light Control</h1>
+				
+				<div class="row" style="padding:10px">
+					
+					<div class="col-md-4 col-md-offset-4"> <!---should b better way to center-->
+				
+					<input onclick="toggle(this.value,this.id)" type="button" value="ledoff" id="LIGHT">
+					
+					</div>
+				</div>
+
+		
+				<h1 class="text">Add ons</h1>
+		</div>
+
+ 		
+ 		
+		</div>	
+			
+		
+			<div style="background-color: #333333">  
+		<!--<h1 style="color:black; text-align:center; font-size: 80%">BY THADOE, JOHN AND MIKE</h1>-->
+			</div>
+ 
+	
+ 		</div>
+
+ 		
+</body>
