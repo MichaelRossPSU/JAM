@@ -5,10 +5,10 @@ import tornado.web
 import tornado.options
 
 import RPi.GPIO as GPIO
-
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(11, GPIO.OUT)
-GPIO.output(11, False)
+relay = 4
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(relay, GPIO.OUT)
+GPIO.output(relay, False)
 
 class WSHandler(tornado.websocket.WebSocketHandler):
 
@@ -16,19 +16,19 @@ class WSHandler(tornado.websocket.WebSocketHandler):
     print 'user is connected.\n'
 
   def on_message(self, message):
-        currentState = GPIO.input(11)
+        currentState = GPIO.input(relay)
         print "Message received: {}".format(self.request.remote_ip)
-        if message == "ledon":
+        if message == "on":
                 if currentState == True:
-                        self.write_message("LED is already on!")
+                        self.write_message("Alarm is already armed")
                 else:
-                        GPIO.output(11, True)
+                        GPIO.output(relay, True)
                         self.write_message("ON")
-        elif message == "ledoff":
+        elif message == "off":
                 if currentState == False:
-                        self.write_message("LED already off!")
+                        self.write_message("Alarm is already disarmed")
                 else:
-                        GPIO.output(11, False)
+                        GPIO.output(relay, False)
                         self.write_message("OFF")
 
   def on_close(self):

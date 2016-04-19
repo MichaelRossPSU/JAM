@@ -35,15 +35,15 @@ $(document).ready(function () {
       alert ("Connection closed");
     };
 
-	$('#led').click(function() {
+	$('#alarm').click(function() {
 	
-		if ($(this).val() == "ledoff") {
-			$(this).val("ledon");
-			var message = $("#led").val();
+		if ($(this).val() == "off") {
+			$(this).val("on");
+			var message = "off";
 		}
-		else{
-			$(this).val("ledoff");
-			var message = $("#led").val();
+		else if($(this).val() == "on") {
+            $(this).val("off")
+			var message = "on";
 		}
 		ws.send(message);
 	});
@@ -129,7 +129,7 @@ $(document).ready(function () {
     				
     				<div class="col-md-4 col-md-offset-4">
   					
-  					<input type="submit" id="led" value="ledoff" /><br />
+  					<input type="submit" id="alarm" value="on" /><br />
   					</div>
 
 
