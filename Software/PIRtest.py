@@ -13,15 +13,16 @@ GPIO.setup(sensor, GPIO.IN, GPIO.PUD_DOWN) # Sets sensor as input and pulls down
 GPIO.setup(18, GPIO.OUT) 
 GPIO.output(18, False) 
 pwm = GPIO.PWM(18, 2400)
-pwm.start(50)
 
 
 while True:
     state = GPIO.input(sensor)
     if state == 0:
     	GPIO.output(18, False)
+    	pwm.stop()
     	time.sleep(0.1)
     elif state == 1:
     	print "Intruder!", state
+    	pwm.start(50)
     	GPIO.output(18, True)
-    	time.sleep(60)
+    	time.sleep(30)
