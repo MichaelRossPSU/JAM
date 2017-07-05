@@ -1,0 +1,41 @@
+.top-container {
+	background-color:  #260917;
+
+}
+
+.container-fluid {
+
+  background: linear-gradient(to right, black , #1A1819); 
+	
+}
+#image1 {
+ width: 140px;
+ height: 200px;
+ float: left;
+ margin:5px;
+}
+
+#mainheader {
+	color: white;
+	font-size: 100px;
+
+}
+
+.left{ 
+background-color: white;
+ margin: 0px;
+ }
+
+.right{
+background-color: black;  	
+margin:0px;
+}
+
+.button1{
+	position:relative;
+	left: 30px;
+}
+
+h1 {
+	text-align: center;
+}
